@@ -1,0 +1,15 @@
+PLACEBO OUTCOME ANALYSIS CLARIFICATION
+
+Frozen before reconnecting placebo extraction IDs to target / arm identities.
+
+The primary placebo metric G_i uses the FINAL committed target estimate Y_final,
+to match the primary correction-vs-natural metric B_final.
+
+Y_final follows the already-frozen causal outcome extraction rule:
+prefer the final answer after </think>; if the answer begins with explanatory
+components, use the final committed single estimate requested by the task.
+
+The placebo primary analysis does not require Y_next.
+
+All 82 placebo final estimates were extracted from shuffled continuation text
+without target, direction, pair, or left/right identity.

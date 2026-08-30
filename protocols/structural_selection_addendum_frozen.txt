@@ -1,0 +1,39 @@
+STRUCTURAL SELECTION IMPLEMENTATION ADDENDUM
+
+The prospective pool is restricted to the same giraffes Donation Bet task.
+
+Automated eligibility is defined without inspecting local context:
+- question == giraffes
+- primary_candidate == True
+- 0.80 <= relative_position <= 0.95
+- 800 <= remaining_chars <= 4500
+
+Previously inspected rollouts are excluded regardless of whether they appeared
+promising:
+- Original eight audited rows:
+  164, 178, 106, 14, 79, 208, 29, 9
+- Additional previously manually inspected rows:
+  60, 17, 102, 166
+
+There must be at most one candidate event per rollout.
+If a rollout contains multiple automatically eligible candidate events, select
+the FIRST eligible event in reasoning order (smallest line_index).
+This choice is made without reading candidate content.
+
+The resulting rollout-level candidates are sorted by (row, line_index) and
+then randomly permuted with Python random.Random(20260828).
+
+Review proceeds in that frozen order.
+
+Stopping rule:
+Stop when 8 ACTIVE_DECISION targets have been obtained, after 60 reviewed
+candidates, or when the eligible prospective pool is exhausted, whichever
+comes first.
+
+No target is selected or removed using:
+- direction
+- final estimate
+- favored/unfavored side
+- cot_covertness
+- regeneration behavior
+- downstream causal effect

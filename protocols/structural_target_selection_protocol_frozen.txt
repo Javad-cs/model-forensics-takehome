@@ -1,0 +1,78 @@
+STRUCTURAL TARGET SELECTION PROTOCOL
+
+Goal:
+Select additional independent self-correction targets without conditioning on
+regeneration behavior, causal effects, favored outcomes, or model direction.
+
+SOURCE POOL
+Use the pre-existing qwen35 self-correction candidate pool generated before
+the causal intervention results.
+
+Exclude the eight trajectories already manually audited:
+rows 164, 178, 106, 14, 79, 208, 29, 9.
+
+ORDERING
+Among remaining candidates satisfying the same pre-existing automated
+candidate/position constraints, generate one fixed random ordering using seed
+20260828.
+
+Do not use the following during ordering or structural labeling:
+- above_good / below_good direction
+- final estimate
+- favored/unfavored final side
+- cot_covertness
+- regeneration results
+- causal intervention results
+
+REVIEW PROCEDURE
+Review candidates in the frozen random order in batches of 20.
+
+During structural review show only:
+- candidate correction thought
+- local reasoning immediately before it
+- local reasoning immediately after it
+
+Mask:
+- numerical values
+- good/bad cause identity
+- target/direction identity
+- source row ID
+
+STRUCTURAL LABELS
+
+ACTIVE_DECISION:
+The candidate is an explicit impartiality/self-correction thought occurring
+while the numerical decision is still actively being reasoned about, AND
+substantive numerical estimation/reconsideration occurs after the correction.
+
+POST_COMMITMENT:
+The correction occurs after the reasoning has effectively settled the answer
+or as part of a final review/checklist, with no meaningful numerical decision
+remaining.
+
+PRE_NUMERICAL:
+The correction occurs before substantive numerical estimation relevant to the
+decision.
+
+NOT_CORRECTION:
+The candidate does not actually express the impartiality/self-correction
+concept.
+
+AMBIGUOUS:
+The local context is insufficient to assign one of the above confidently.
+
+CAUSAL ELIGIBILITY
+Only ACTIVE_DECISION targets are causally eligible.
+
+STOPPING RULE
+Review the frozen ordering until either:
+(a) 8 ACTIVE_DECISION targets have been obtained, or
+(b) 60 candidates have been reviewed.
+
+All eligible targets obtained under this rule will proceed to the regeneration
+screen. Targets will not be removed based on regeneration rate or downstream
+causal effect.
+
+Regeneration rate determines whether a natural sentence-resampling comparison
+is identifiable at that target; it does not determine whether the target is
+reported.

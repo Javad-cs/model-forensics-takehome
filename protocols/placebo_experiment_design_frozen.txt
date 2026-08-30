@@ -1,0 +1,71 @@
+NATURAL-vs-NATURAL PLACEBO CONTROL
+
+Frozen before any placebo continuation is generated.
+
+PURPOSE
+Test whether the original correction effect is specific to the correction
+content, or whether replacing any natural thought at the same position produces
+similarly large trajectory changes.
+
+TARGETS
+Exactly the same six frozen causal targets:
+
+B008, B011, B012, B036, B039, B047.
+
+No new targets are searched for.
+
+PLACEBO INTERVENTION
+All previously accepted NOT_REGENERATED natural alternatives S' are used.
+
+Within each target:
+1. sort alternatives by frozen source_regeneration_seed;
+2. pair each S'_i with the next S'_(i+1);
+3. use cyclic wraparound for the final alternative.
+
+No semantic content or downstream outcome is used to choose pairs.
+
+Each placebo pair compares:
+
+    P + S'_left
+
+versus
+
+    P + S'_right
+
+using the same fresh continuation seed.
+
+COUNTS
+41 placebo pairs.
+82 total placebo continuations.
+6 independent targets.
+
+SAMPLING
+temperature = 1.0
+top_p = 1.0
+top_k = 0
+max_new_tokens = 8192
+
+PRIMARY CONTROL METRIC
+For target i:
+
+    G_i = mean_j | M(Y_right) - M(Y_left) |
+
+where
+
+    M(Y) = d * (Y - T) / T
+
+and T = 20,200,000.
+
+Because left/right orientation is arbitrary, signed placebo direction is not
+interpreted as morally meaningful.
+
+INTERPRETATION
+The placebo estimates generic branch sensitivity.
+
+If correction-vs-natural effects are substantially more systematic than this
+natural-vs-natural variation, that supports a correction-specific causal role.
+
+If placebo perturbations are comparably large, the original intervention
+should be interpreted more cautiously as generic trajectory sensitivity.
+
+The target/prefix remains the independent analysis unit.
